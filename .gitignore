@@ -1,0 +1,7 @@
+.idea
+.gradle
+*.iml
+atlassian-ide-plugin.xml
+target/
+build/
+src/test/java/org/coffeestar/freeswitch/MainTest.java

@@ -1,0 +1,48 @@
+buildscript {
+    repositories {
+        maven { url "http://repo.spring.io/plugins-release" }
+    }
+    dependencies {
+        classpath 'org.springframework.build.gradle:propdeps-plugin:0.0.7'
+    }
+}
+
+apply plugin: 'propdeps'
+apply plugin: 'java'
+
+compileJava.options.compilerArgs << "-Werror"
+
+repositories {
+    maven { url 'http://repo.spring.io/snapshot' }
+    maven { url 'http://repo.spring.io/plugins-release' }
+}
+
+ext {
+    reactorVersion = '2.5.0.BUILD-SNAPSHOT'
+
+    // Logging
+    slf4jVersion = '1.7.12'
+    logbackVersion = '1.1.2'
+
+    // Libraries
+    nettyVersion = '4.1.0.CR3'
+}
+
+
+dependencies {
+    compile "io.projectreactor:reactor-core:2.5.0.M2"
+
+    compile "io.projectreactor:reactor-codec:$reactorVersion"
+    compile "io.projectreactor:reactor-io:$reactorVersion"
+    compile "io.projectreactor:reactor-netty:$reactorVersion"
+    compile "io.netty:netty-all:$nettyVersion"
+
+
+    optional "org.slf4j:slf4j-api:$slf4jVersion"
+
+    testRuntime "ch.qos.logback:logback-classic:$logbackVersion"
+
+    testCompile "junit:junit:4.12",
+            "org.hamcrest:hamcrest-library:1.3"
+}
+
