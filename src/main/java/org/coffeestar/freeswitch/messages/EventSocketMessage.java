@@ -1,15 +1,16 @@
-package org.coffeestar.freeswitch;
+package org.coffeestar.freeswitch.messages;
 
 import java.io.Serializable;
 import java.util.Map;
+
+import static org.coffeestar.freeswitch.messages.Headers.CONTENT_LENGTH;
+import static org.coffeestar.freeswitch.messages.Headers.CONTENT_TYPE;
 
 /**
  *
  */
 public class EventSocketMessage implements Serializable {
     private static final long serialVersionUID = 0L;
-    private static final String CONTENT_TYPE = "Content-Type";
-    private static final String CONTENT_LENGTH = "Content-Length";
     private final Map<String, String> headers;
     private final String body;
 
@@ -18,6 +19,9 @@ public class EventSocketMessage implements Serializable {
     }
 
     public EventSocketMessage(Map<String, String> headers, String body) {
+        if (headers == null) {
+            throw new IllegalArgumentException("Headers must not be null");
+        }
         this.headers = headers;
         this.body = body;
     }
@@ -54,4 +58,22 @@ public class EventSocketMessage implements Serializable {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        EventSocketMessage that = (EventSocketMessage) o;
+
+        if (!headers.equals(that.headers)) return false;
+        return body != null ? body.equals(that.body) : that.body == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = headers.hashCode();
+        result = 31 * result + (body != null ? body.hashCode() : 0);
+        return result;
+    }
 }

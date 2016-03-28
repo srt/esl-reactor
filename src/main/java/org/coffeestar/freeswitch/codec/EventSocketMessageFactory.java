@@ -1,6 +1,6 @@
 package org.coffeestar.freeswitch.codec;
 
-import org.coffeestar.freeswitch.EventSocketMessage;
+import org.coffeestar.freeswitch.messages.EventSocketMessage;
 
 import java.util.Map;
 

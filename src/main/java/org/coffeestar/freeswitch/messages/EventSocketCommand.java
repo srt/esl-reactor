@@ -1,4 +1,4 @@
-package org.coffeestar.freeswitch;
+package org.coffeestar.freeswitch.messages;
 
 import java.io.Serializable;
 

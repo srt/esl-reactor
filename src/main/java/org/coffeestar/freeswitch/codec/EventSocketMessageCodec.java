@@ -1,7 +1,8 @@
 package org.coffeestar.freeswitch.codec;
 
-import org.coffeestar.freeswitch.EventSocketCommand;
-import org.coffeestar.freeswitch.EventSocketMessage;
+import org.coffeestar.freeswitch.messages.EventSocketCommand;
+import org.coffeestar.freeswitch.messages.Headers;
+import org.coffeestar.freeswitch.messages.EventSocketMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.io.buffer.Buffer;
@@ -27,7 +28,6 @@ public class EventSocketMessageCodec extends BufferCodec<EventSocketMessage, Eve
     private static final byte LF = (byte) 0x0A;
     private static final byte SPACE = (byte) 0x20;
     private static final byte COLON = (byte) 0x3A;
-    private static final String CONTENT_LENGTH_HEADER = "Content-Length";
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private final EventSocketMessageFactory eventSocketMessageFactory = new EventSocketMessageFactory();
 
@@ -199,7 +199,7 @@ public class EventSocketMessageCodec extends BufferCodec<EventSocketMessage, Eve
      * @throws IllegalStateException if the value is not a number
      */
     private int findContentLength(Map<String, String> headers) throws IllegalStateException {
-        final String contentLengthString = headers.get(CONTENT_LENGTH_HEADER);
+        final String contentLengthString = headers.get(Headers.CONTENT_LENGTH);
         int contentLength = 0;
         if (contentLengthString != null) {
             try {
